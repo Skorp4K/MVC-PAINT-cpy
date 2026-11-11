@@ -45,7 +45,7 @@ public class Controller {
     }
     public void mousePressed(Point2D p){
         firstPoint = p;
-        MyShape shape = shapeFactory.createShape(ShapeType.RECTANGULAR_SHAPE, Color.RED, false);
+        MyShape shape = shapeFactory.createDefaultShape();
         model.setDrawableShape(shape);
         model.addShape(shape);
     }
