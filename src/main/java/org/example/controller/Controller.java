@@ -23,7 +23,7 @@ public class Controller {
 
     private Controller() {
         model = new Model();
-        shapeFactory = new ShapeFactory();
+        shapeFactory = ShapeFactory.getInstanse();
         MyShape shape = shapeFactory.createShape(ShapeType.RECTANGULAR_SHAPE, Color.BLUE, true);
         model.setDrawableShape(shape);
 
