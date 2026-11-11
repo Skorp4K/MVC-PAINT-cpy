@@ -1,14 +1,12 @@
 package org.example.controller;
 
+import org.example.controller.action.ActionDraw;
+import org.example.controller.action.AppAction;
 import org.example.model.Model;
-import org.example.model.MyShape;
-import org.example.model.factory.ShapeFactory;
-import org.example.model.factory.ShapeType;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 // TODO: Сделать singleton класс
 public class Controller {
@@ -17,15 +15,11 @@ public class Controller {
     private final Model model;
     private final MyFrame frame;
     private final MyPanel panel;
-    private Point2D firstPoint;
-    private Point2D secondPoint;
-    private ShapeFactory shapeFactory;
+    private final AppAction action;
 
     private Controller() {
         model = new Model();
-        shapeFactory = ShapeFactory.getInstanse();
-        MyShape shape = shapeFactory.createShape(ShapeType.RECTANGULAR_SHAPE, Color.BLUE, true);
-        model.setDrawableShape(shape);
+        action = new ActionDraw(model);
 
         panel = new MyPanel(this);
         // TODO: Поменять наблюдатель на более современную реализацию
@@ -43,15 +37,11 @@ public class Controller {
         }
         return instance;
     }
-    public void mousePressed(Point2D p){
-        firstPoint = p;
-        MyShape shape = shapeFactory.createDefaultShape();
-        model.setDrawableShape(shape);
-        model.addShape(shape);
+    public void mousePressed(Point point){
+        action.mousePressed(point);
     }
-    public void mouseDragged(Point2D p){
-        secondPoint = p;
-        model.changeShape(firstPoint, secondPoint);
+    public void mouseDragged(Point point){
+        action.mouseDragged(point);
     }
 
     public void draw(Graphics2D g2) {

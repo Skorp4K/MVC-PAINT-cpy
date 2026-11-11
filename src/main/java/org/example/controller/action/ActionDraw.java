@@ -15,6 +15,7 @@ public class ActionDraw implements AppAction {
     public ActionDraw(Model model) {
         this.model = model;
         shapeFactory = ShapeFactory.getInstanse();
+        model.setDrawableShape(shapeFactory.createDefaultShape());
     }
 
     @Override
